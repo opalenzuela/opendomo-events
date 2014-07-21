@@ -6,6 +6,7 @@
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 LOGFILE="/var/opendomo/log/events.log"
+echo "#> Events"
 echo "list:showEvents.sh"
 if test -f $LOGFILE
 then
