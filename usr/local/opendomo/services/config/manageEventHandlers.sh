@@ -60,7 +60,7 @@ for ehf in /etc/opendomo/eventhandlers/*; do
 	NAME=`grep '#desc' "$ehf" |cut -f2- -d':'` 2>/dev/null
 	EHFBN=`basename $ehf`
 	if test -f /usr/local/opendomo/events/$EHFBN; then
-		EVENTNAME=`cat /usr/share/events/$EHFBN`
+		EVENTNAME=`cat /usr/local/opendomo/events/$EHFBN`
 	else
 		EVENTNAME="$EHFBN"
 	fi
