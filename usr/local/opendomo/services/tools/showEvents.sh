@@ -2,7 +2,7 @@
 #desc:Show events
 #type:local
 #package:odevents
-
+ 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 LOGFILE="/var/opendomo/log/events.log"
