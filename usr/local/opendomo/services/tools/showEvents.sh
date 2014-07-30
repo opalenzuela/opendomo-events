@@ -36,15 +36,15 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "actions:"
 		echo "	showEvents.sh	Apply filter"
 else
-		echo "# Event information"
-		echo "form:`basename $0`"
-		TIME=`echo $1 | cut -f1 -d-`
-		TYPE=`echo $1 | cut -f3 -d-`
-		DESC=`echo $1 | cut -f2 -d-`
+		TIME=`echo $1 | cut -f1`
+		DESC=`echo $1 | cut -f2`
+		TYPE=`echo $1 | cut -f3`
+		echo "#>Event information"
+		echo "form:`$TYPE"
 		echo "	time	Time	readonly	$TIME"
 		echo "	type	Type	readonly	$TYPE"
 		echo "	desc	Description	readonly	$DESC"
 		echo "actions:"
-		echo "	showEvents.sh	Back to list"
+		echo "	goback	Back to list"
 fi
 echo
