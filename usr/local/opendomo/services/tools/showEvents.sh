@@ -40,7 +40,7 @@ else
 		DESC=`echo $1 | cut -f2`
 		TYPE=`echo $1 | cut -f3`
 		echo "#>Event information"
-		echo "form:`$TYPE"
+		echo "form:$TYPE"
 		echo "	time	Time	readonly	$TIME"
 		echo "	type	Type	readonly	$TYPE"
 		echo "	desc	Description	readonly	$DESC"
