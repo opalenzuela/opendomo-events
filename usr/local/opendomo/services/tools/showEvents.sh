@@ -6,7 +6,7 @@
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 LOGFILE="/var/opendomo/log/events.log"
-SEDFILTER='s/^/\t/g'
+SEDFILTER='s/^/\t-/g'
 
 if ! test -r $LOGFILE; then
         echo "#ERR: Access denied!"
@@ -37,9 +37,13 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "	showEvents.sh	Apply filter"
 else
 		echo "# Event information"
+		echo "form:`basename $0`"
 		TIME=`echo $1 | cut -f1 -d-`
-		TYPE=`echo $1 | cut -f2 -d-`
-		grep $TIME $LOGFILE | grep $TYPE | sed 's/^/# /'
+		TYPE=`echo $1 | cut -f3 -d-`
+		DESC=`echo $1 | cut -f2 -d-`
+		echo "	time	Time	readonly	$TIME"
+		echo "	type	Type	readonly	$TYPE"
+		echo "	desc	Description	readonly	$DESC"
 		echo "actions:"
 		echo "	showEvents.sh	Back to list"
 fi
