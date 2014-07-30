@@ -38,9 +38,10 @@ if test -z "$1" || test "$1" = "filter"; then
 else
 		TIME=`grep $1 $LOGFILE | cut -f1`
 		DESC=`grep $1 $LOGFILE | cut -f2`
-		TYPE=`grep $1 $LOGFILE | cut -f3`
+		TYPE=`grep $1 $LOGFILE | cut -f3 | sed 's/ /+/g'`
+		
 		echo "#>Event information"
-		echo "form:$TYPE"
+		echo "form:$TYPE.sh"
 		echo "	time	Time	readonly	$TIME"
 		echo "	type	Type	readonly	$TYPE"
 		echo "	desc	Description	readonly	$DESC"
