@@ -36,9 +36,9 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "actions:"
 		echo "	showEvents.sh	Apply filter"
 else
-		TIME=`echo $1 | cut -f1`
-		DESC=`echo $1 | cut -f2`
-		TYPE=`echo $1 | cut -f3`
+		TIME=`grep $1 $LOGFILE | cut -f1`
+		DESC=`grep $1 $LOGFILE | cut -f2`
+		TYPE=`grep $1 $LOGFILE | cut -f3`
 		echo "#>Event information"
 		echo "form:$TYPE"
 		echo "	time	Time	readonly	$TIME"
