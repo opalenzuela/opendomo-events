@@ -6,9 +6,10 @@
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 EHPATH="/usr/local/opendomo/eventhandlers"
+EVPATH="/usr/local/opendomo/events"
 
-if ! test -f /usr/share/events/all-all; then
-	echo "All" > /usr/share/events/all-all
+if ! test -f $EVPATH/all-all; then
+	echo "All" > $EVPATH/all-all
 fi
 EHS=""
 EVENTS=""
@@ -20,11 +21,11 @@ for eh in $EHPATH/*.sh; do
 done
 
 # Cargamos el listado de eventos detectables
-for p in `ls /usr/local/opendomo/events/*`; do
+for p in `ls $EVPATH/*`; do
 	BN=`basename $p`
 	DESC=`cat $p`
 	# Descartamos los ya configurados
-	if ! test -f /etc/opendomo/eventhandlers/$BN; then
+	if ! test -f $EHPATH/$BN; then
 		EVENTS="$EVENTS,$BN:$DESC"
 	fi
 done
@@ -34,7 +35,7 @@ SCRIPT=$2
 if ! test -z "$1"; then
 	if test -x "$EHPATH/$SCRIPT"
 	then
-		if ln -s "$EHPATH/$SCRIPT" /etc/opendomo/eventhandlers/$EH
+		if ln -s "$EHPATH/$SCRIPT" $EHPATH/$EH
 		then
 			echo "# Eventhandler [$EH] created"
 			/bin/logevent notice odevents "Eventhandler [$EH] created"
@@ -55,12 +56,12 @@ fi
 
 # Listamos los EH configurados
 echo "#> Installed eventhandlers"
-echo "list:`basename $0`        detailed"
-for ehf in /etc/opendomo/eventhandlers/*; do
+echo "list:`basename $0`	detailed"
+for ehf in $EHPATH/*; do
 	NAME=`grep '#desc' "$ehf" |cut -f2- -d':'` 2>/dev/null
 	EHFBN=`basename $ehf`
-	if test -f /usr/local/opendomo/events/$EHFBN; then
-		EVENTNAME=`cat /usr/local/opendomo/events/$EHFBN`
+	if test -f $EVPATH/$EHFBN; then
+		EVENTNAME=`cat $EVPATH/$EHFBN`
 	else
 		EVENTNAME="$EHFBN"
 	fi
@@ -72,7 +73,7 @@ echo "actions:"
 echo "	delEventHandler.sh	Delete eventhandler"
 echo
 echo "#> Add new eventhandler"
-ACDESC=`grep '#desc' /etc/opendomo/eventhandlers/$1 | cut -f2 -d: |head -n1`
+ACDESC=`grep '#desc' $EHPATH/$1 | cut -f2 -d: |head -n1`
 echo "form:`basename $0`"
 echo "	event	Event	list[$EVENTS]"
 echo "	handler	Action	list[$EHS]"
