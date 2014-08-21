@@ -37,7 +37,7 @@ if ! test -z "$1"; then
 	then
 		if ln -s "$EHPATH/$SCRIPT" /etc/opendomo/eventhandlers/$EH
 		then
-			echo "# Eventhandler [$EH] created"
+			#echo "# Eventhandler [$EH] created"
 			/bin/logevent notice odevents "Eventhandler [$EH] created"
 		else
 			echo "#ERR Eventhandler couldn't be created"
@@ -56,7 +56,7 @@ fi
 
 # Listamos los EH configurados
 echo "#> Installed eventhandlers"
-echo "list:`basename $0`	detailed"
+echo "list:`basename $0`	detailed selectable"
 cd /etc/opendomo/eventhandlers
 for ehf in *; do
 	NAME=`grep '#desc' "$ehf" |cut -f2- -d':'` 2>/dev/null
