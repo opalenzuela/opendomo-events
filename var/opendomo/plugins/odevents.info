@@ -1,0 +1,5 @@
+DESCRIPTION="Event manager"
+REQUIRED_BYTES="5000" 
+SCREENSHOTS="https://github.com/jmirasb/opendomo-events/screenshot1.png" 
+SCHEME="FEFABA FFFFFF" 
+ICON="odevents.png"
