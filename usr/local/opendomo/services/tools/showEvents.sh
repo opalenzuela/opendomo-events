@@ -15,14 +15,20 @@ fi
 
 if test -z "$1" || test "$1" = "filter"; then
 		echo "#> Events"
-		echo "list:`basename $0`"
+		echo "list:`basename $0`	filterable"
 		case $2 in
-				warn)
-						FILTER=' -e warn -e error -e crit '
-				;;
 				error)
 						FILTER=' -e error -e crit '
 				;;
+				warn)
+						FILTER=' -e warn -e error -e crit '
+				;;
+				notice)
+						FILTER=' -e notice -e warn -e error -e crit '
+				;;
+				debug)
+						FILTER=' -e debug -e notice -e warn -e error -e crit '
+				;;				
 				*)
 						FILTER=' -v debug '
 				;;
@@ -32,7 +38,7 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "#>Filter"
 		echo "form:`basename $0`"
 		echo "	type	type	hidden 	filter"
-		echo "	filter	Filter	list[all,warn,error]	$1"
+		echo "	filter	Filter	list[all,warn,notice,error,debug]	$1"
 		echo "actions:"
 		echo "	showEvents.sh	Apply filter"
 else
