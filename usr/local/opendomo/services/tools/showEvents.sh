@@ -7,6 +7,7 @@
 
 LOGFILE="/var/opendomo/log/events.log"
 SEDFILTER='s/^/\t-/g'
+PAGECOUNT=100 
 
 if ! test -r $LOGFILE; then
         echo "#ERR: Access denied!"
@@ -33,7 +34,7 @@ if test -z "$1" || test "$1" = "filter"; then
 						FILTER=' -v debug '
 				;;
 		esac
-		sort -r $LOGFILE | grep $FILTER | sed $SEDFILTER | head -n 100  
+		sort -r $LOGFILE | grep $FILTER | head -n $PAGECOUNT  | sed $SEDFILTER 
 		echo
 		echo "#>Filter"
 		echo "form:`basename $0`"
