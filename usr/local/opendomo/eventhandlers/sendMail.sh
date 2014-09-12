@@ -1,7 +1,7 @@
 #!/bin/sh
 #desc:Send e-mail
 #type:redundant
-#package:email
+#package:odevents
 
 PAIR="$1-$2"
 TEXT="$@"
