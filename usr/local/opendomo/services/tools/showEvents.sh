@@ -43,7 +43,7 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "actions:"
 		echo "	showEvents.sh	Apply filter"
 else
-	line=`grep $1 $LOGFILE | sed's/\t/@/g'`
+	line=`grep $1 $LOGFILE | sed 's/\t/@/g'`
 	TIME=`echo $line | cut -f1 -d@`
 	DESC=`echo $line | cut -f2 -d@`
 	TYPE=`echo $line | cut -f3 -d@ | cut -f2 -d' '`
