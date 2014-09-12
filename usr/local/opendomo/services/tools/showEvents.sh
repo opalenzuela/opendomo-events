@@ -49,13 +49,22 @@ else
 	TYPE=`echo $line | cut -f3 -d@ | cut -f2 -d' '`
 	ORIGIN=`echo $line | cut -f3 -d@ | cut -f1 -d' '`
 	
+	if test -f /usr/local/opendomo/events/$TYPE
+	then
+		TYPENAME=`cat /usr/local/opendomo/events/$TYPE`
+	else
+		TYPENAME="$TYPE"
+	fi
+	
 	echo "#>Event information"
 	echo "form:$TYPE.sh"
+	echo "	type	Type	hidden	$TYPE"
+	echo "	event	Event	readonly	$TYPENAME"
 	echo "	time	Time	readonly	$TIME"
-	echo "	type	Type	readonly	$TYPE"
 	echo "	origin	Originator	readonly	$ORIGIN"
 	echo "	desc	Description	readonly	$DESC"
 	echo "actions:"
 	echo "	goback	Back to list"
+	echo "	manageEventHandlers.sh	Assign eventhandler"
 fi
 echo
