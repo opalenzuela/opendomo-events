@@ -16,7 +16,7 @@ fi
 
 if test -z "$1" || test "$1" = "filter"; then
 		echo "#> Events"
-		echo "list:`basename $0`	filterable"
+		echo "list:`basename $0`	" #filterable
 		case $2 in
 				error)
 						FILTER=' -e error -e crit '
