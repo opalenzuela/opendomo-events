@@ -45,11 +45,11 @@ if ! test -z "$2"; then
 			echo
 			exit 1
 		fi 
-	else
-		echo "#ERR Eventhandler not found"
-		/bin/logevent notice odevents "Error creating [$EH]"
-		echo
-		exit 2
+	#else
+	#	echo "#ERR Eventhandler not found"
+	#	/bin/logevent notice odevents "Error creating [$EH]"
+	#	echo
+	#	exit 2
 	fi
 fi
 
