@@ -32,7 +32,7 @@ done
 
 EH=$1
 SCRIPT=$2
-if ! test -z "$1"; then
+if ! test -z "$2"; then
 	if test -x "$EHPATH/$SCRIPT"
 	then
 		if ln -s "$EHPATH/$SCRIPT" /etc/opendomo/eventhandlers/$EH
@@ -76,6 +76,6 @@ echo
 echo "#> Add new eventhandler"
 ACDESC=`grep '#desc' $EHPATH/$1 | cut -f2 -d: |head -n1`
 echo "form:`basename $0`"
-echo "	event	Event	list[$EVENTS]"
+echo "	event	Event	list[$EVENTS]	$1"
 echo "	handler	Action	list[$EHS]"
 echo
