@@ -1,7 +1,10 @@
 #!/bin/sh
-#desc:Generate an alert to the cloud
+#desc:Send mail notification
 #type:redundant
 #package:odevents
+
+### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+
 
 LEVEL="$1"
 MODULE="$2"
