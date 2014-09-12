@@ -31,7 +31,7 @@ if test -z "$1" || test "$1" = "filter"; then
 						FILTER=' -e debug -e notice -e warn -e error -e crit '
 				;;				
 				*)
-						FILTER=' -v debug '
+						FILTER=' -v -e debug -e notice'
 				;;
 		esac
 		grep $FILTER $LOGFILE | tail -n $PAGECOUNT  | sort -r  | sed $SEDFILTER 
@@ -43,16 +43,19 @@ if test -z "$1" || test "$1" = "filter"; then
 		echo "actions:"
 		echo "	showEvents.sh	Apply filter"
 else
-		TIME=`grep $1 $LOGFILE | cut -f1`
-		DESC=`grep $1 $LOGFILE | cut -f2`
-		TYPE=`grep $1 $LOGFILE | cut -f3 | sed 's/ /+/g'`
-		
-		echo "#>Event information"
-		echo "form:$TYPE.sh"
-		echo "	time	Time	readonly	$TIME"
-		echo "	type	Type	readonly	$TYPE"
-		echo "	desc	Description	readonly	$DESC"
-		echo "actions:"
-		echo "	goback	Back to list"
+	line=`grep $1 $LOGFILE`
+	TIME=`echo $line | cut -f1`
+	DESC=`echo $line | cut -f2`
+	TYPE=`echo $line | cut -f3`
+	ORIGIN=`echo $line | cut -f3`
+	
+	echo "#>Event information"
+	echo "form:$TYPE.sh"
+	echo "	time	Time	readonly	$TIME"
+	echo "	type	Type	readonly	$TYPE"
+	echo "	origin	Originator	readonly	$ORIGIN"
+	echo "	desc	Description	readonly	$DESC"
+	echo "actions:"
+	echo "	goback	Back to list"
 fi
 echo
