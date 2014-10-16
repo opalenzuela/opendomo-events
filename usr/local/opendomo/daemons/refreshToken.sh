@@ -17,12 +17,15 @@ PIDFILE="/var/opendomo/run/token.pid"
 
 do_background() {
 	echo "ON" >$PIDFILE
+	
+	UIDFILE="/etc/opendomo/uid"
+	uid=`cat  $UIDFILE `
+	source /etc/os-release
+	source /etc/opendomo/udata/admin.info
+		
 	while test -f $PIDFILE
 	do
-		UIDFILE="/etc/opendomo/uid"
-		uid=`cat  $UIDFILE `
-		source /etc/opendomo/udata/admin.info
-		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL"
+		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&VER=$VERSION&MAIL=$EMAIL"
 		wget -q -O /var/opendomo/tmp/refreshToken.tmp $URL 2>/dev/null
 		sleep 3600
 	done
