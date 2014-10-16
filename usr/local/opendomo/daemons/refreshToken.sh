@@ -6,39 +6,46 @@
 # Should-Start:      
 # Default-Start:     1 2 3 4 5
 # Default-Stop:      0 6
-# Short-Description: Update Cloud token
-# Description:       Update Cloud token
+# Short-Description: Cloud access service
+# Description:       Cloud access service
 #
 ### END INIT INFO
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 . /lib/lsb/init-functions
 PIDFILE="/var/opendomo/run/token.pid"
+TMPFILE="/var/opendomo/tmp/cloudaccessservice.tmp"
+UIDFILE="/etc/opendomo/uid"
+ADMININFO="/etc/opendomo/udata/admin.info"
 
 do_background() {
 	echo "ON" >$PIDFILE
 	
-	UIDFILE="/etc/opendomo/uid"
+	
 	uid=`cat  $UIDFILE `
-	source /etc/os-release
-	source /etc/opendomo/udata/admin.info
+	#source /etc/os-release
+	source $ADMININFO
 		
 	while test -f $PIDFILE
 	do
-		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&VER=$VERSION&MAIL=$EMAIL"
-		wget -q -O /var/opendomo/tmp/refreshToken.tmp $URL 2>/dev/null
+		#URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&VER=$VERSION&MAIL=$EMAIL"
+		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL"
+		wget -q -O $TMPFILE $URL 2>/dev/null
 		sleep 3600
 	done
+	# Service stopped here:
+	URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL&ACTION=STOP"
+	wget -q -O $TMPFILE $URL 2>/dev/null		
 }
 
 do_start(){
-	log_action_begin_msg "Starting token service"
+	log_action_begin_msg "Starting Cloud access service"
 	$0 background > /dev/null &
 	log_action_end_msg $?
 }
 
 do_stop () {
-	log_action_begin_msg "Stopping token service"
+	log_action_begin_msg "Stopping Cloud access service"	
 	rm $PIDFILE 2>/dev/null
 	log_action_end_msg $?
 }
