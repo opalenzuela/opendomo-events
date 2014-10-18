@@ -28,10 +28,10 @@ do_background() {
 		
 	while test -f $PIDFILE
 	do
-		#URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&VER=$VERSION&MAIL=$EMAIL"
-		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL"
+		URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&VER=$VERSION&MAIL=$EMAIL"
+		#URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL"
 		wget -q -O $TMPFILE $URL 2>/dev/null
-		sleep 3600
+		sleep 600
 	done
 	# Service stopped here:
 	URL="http://cloud.opendomo.com/activate/index.php?UID=$uid&MAIL=$EMAIL&ACTION=STOP"
