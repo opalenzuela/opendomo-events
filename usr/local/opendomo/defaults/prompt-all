@@ -1,0 +1,4 @@
+
+#TODO Use the complete format when TXT is allowed as well
+#echo "$3	$1 $2	$4 " >> /var/www/data/prompts.txt
+echo "{[1]}" > /var/www/data/prompts.json
