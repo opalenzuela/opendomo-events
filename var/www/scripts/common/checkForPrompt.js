@@ -1,7 +1,7 @@
 
 setInterval(function {
 	try {
-		var prompting = loadJSON("/data/prompt.json");
+		var prompting = loadJSON("/data/prompts.txt");
 		if (prompting.length>0) {
 			$("#cat-config").addClass("prompting");
 		}
