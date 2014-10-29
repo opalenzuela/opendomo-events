@@ -1,5 +1,5 @@
 
-setInterval(function {
+setInterval(function () {
 	try {
 		var prompting = loadJSON("/data/prompts.txt");
 		if (prompting.length>0) {
