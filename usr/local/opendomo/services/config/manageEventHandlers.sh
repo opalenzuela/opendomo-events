@@ -23,14 +23,14 @@ for eh in $EHPATH/*.sh; do
 done
 # ... and we add the sequences ...
 for eh in $SEQPATH/*.seq; do
-	if test -f $eh; do
+	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
 	done
 fi
 # ... and scenes!!
 for eh in $SCENEPATH/*.seq; do
-	if test -f $eh; do
+	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
 	done
