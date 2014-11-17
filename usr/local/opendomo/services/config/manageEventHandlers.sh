@@ -30,7 +30,7 @@ for eh in $SEQPATH/*.seq; do
 done
 
 # ... and scenes!!
-for eh in $SCENEPATH/*.seq; do
+for eh in $SCENEPATH/*.conf; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
