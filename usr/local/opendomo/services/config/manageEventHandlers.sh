@@ -26,15 +26,16 @@ for eh in $SEQPATH/*.seq; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
-	done
-fi
+	fi
+done
+
 # ... and scenes!!
 for eh in $SCENEPATH/*.seq; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
-	done
-fi
+	fi
+done
 
 
 # Loading list with defined events
