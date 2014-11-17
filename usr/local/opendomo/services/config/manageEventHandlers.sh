@@ -7,6 +7,8 @@
 
 EHPATH="/usr/local/opendomo/eventhandlers"
 EVPATH="/usr/local/opendomo/events"
+SEQPATH="/etc/opendomo/sequences"
+SCENEPATH="/etc/opendomo/scenes"
 
 if ! test -f $EVPATH/all-all; then
 	echo "All" > $EVPATH/all-all
@@ -14,17 +16,32 @@ fi
 EHS=""
 EVENTS=""
 
-# Cargamos el listado con los EH disponibles
+# Loading list with available event handlers
 for eh in $EHPATH/*.sh; do
 	desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
-	EHS="$EHS,`basename $eh`:$desc"
+	EHS="$EHS,$eh:$desc"
 done
+# ... and we add the sequences ...
+for eh in $SEQPATH/*.seq; do
+	if test -f $eh; do
+		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
+		EHS="$EHS,$eh:$desc"
+	done
+fi
+# ... and scenes!!
+for eh in $SCENEPATH/*.seq; do
+	if test -f $eh; do
+		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
+		EHS="$EHS,$eh:$desc"
+	done
+fi
 
-# Cargamos el listado de eventos detectables
+
+# Loading list with defined events
 for p in `ls $EVPATH/*`; do
 	BN=`basename $p`
 	DESC=`cat $p`
-	# Descartamos los ya configurados
+	# Discarding the already configured
 	if ! test -f $EHPATH/$BN; then
 		EVENTS="$EVENTS,$BN:$DESC"
 	fi
@@ -35,7 +52,7 @@ SCRIPT=$2
 if ! test -z "$2"; then
 	if test -x "$EHPATH/$SCRIPT"
 	then
-		if ln -s "$EHPATH/$SCRIPT" /etc/opendomo/eventhandlers/$EH
+		if ln -s "$EHPATH/$SCRIPT" $EH
 		then
 			#echo "# Eventhandler [$EH] created"
 			/bin/logevent notice odevents "Eventhandler [$EH] created"
@@ -74,7 +91,7 @@ echo "actions:"
 echo "	delEventHandler.sh	Delete eventhandler"
 echo
 echo "#> Add new eventhandler"
-ACDESC=`grep '#desc' $EHPATH/$1 | cut -f2 -d: |head -n1`
+#ACDESC=`grep '#desc' $EHPATH/$1 | cut -f2 -d: |head -n1`
 echo "form:`basename $0`"
 echo "	event	Event	list[$EVENTS]	$1"
 echo "	handler	Action	list[$EHS]"
