@@ -1,3 +1,3 @@
-li.eventhandler a{
-	background: url("/images/right-arrow.png") right center no-repeat;
+li.eventhandler p{
+	background: url("/images/right-arrow.png") left center no-repeat;
 }
