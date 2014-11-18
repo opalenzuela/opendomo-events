@@ -8,11 +8,7 @@
 EHPATH="/usr/local/opendomo/eventhandlers"
 EVPATH="/usr/local/opendomo/events"
 SEQPATH="/etc/opendomo/sequences"
-SCENEPATH="/etc/opendomo/scenes"
 
-if ! test -f $EVPATH/all-all; then
-	echo "All" > $EVPATH/all-all
-fi
 EHS=""
 EVENTS=""
 
@@ -21,16 +17,8 @@ for eh in $EHPATH/*.sh; do
 	desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 	EHS="$EHS,$eh:$desc"
 done
-# ... and we add the sequences ...
+# ... and we add the sequences !
 for eh in $SEQPATH/*.seq; do
-	if test -f $eh; then
-		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
-		EHS="$EHS,$eh:$desc"
-	fi
-done
-
-# ... and scenes!!
-for eh in $SCENEPATH/*.conf; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
