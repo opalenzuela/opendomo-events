@@ -19,7 +19,7 @@ for eh in $EHPATH/*.sh; do
 	EHS="$EHS,$eh:$desc"
 done
 # ... and we add the actions !
-for eh in $ACTPATH/*.seq; do
+for eh in $ACTPATH/*.action; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
@@ -40,21 +40,22 @@ done
 # Two parameters: saving an eventhandler
 if ! test -z "$2"; then
 	EH="$CFGDIR/$1"
+	BNAME=`basename $EH`
 	SCRIPT=$2
 	if test -x "$SCRIPT"
 	then
 		if ln -s "$SCRIPT" $EH
 		then
 			#echo "# Eventhandler [$EH] created"
-			logevent notice odevents "Eventhandler [$EH] created"
+			logevent notice odevents "Eventhandler [$BNAME] created"
 		else
 			echo "#ERR Eventhandler couldn't be created"
-			logevent notice odevents "Error creating [$EH]"
+			logevent notice odevents "Error creating [$BNAME]"
 			echo
 		fi 
 	else
 		echo "#ERR Eventhandler not found"
-		logevent notice odevents "Error creating [$EH]"
+		logevent notice odevents "Error creating [$BNAME]"
 		echo
 	fi
 fi
@@ -77,7 +78,10 @@ for ehf in *; do
 	fi
 done
 echo "actions:"
-echo "	delEventHandler.sh	Delete eventhandler"
+echo "	delEventHandler.sh	Delete"
+if test -x /usr/local/opendomo/manageRules.sh; then
+	echo "	manageRules.sh	Manage rules"
+fi
 echo
 echo "#> Add new eventhandler"
 #ACDESC=`grep '#desc' $EHPATH/$1 | cut -f2 -d: |head -n1`

@@ -58,7 +58,7 @@ else
 	
 	echo "#>Event information"
 	echo "form:$TYPE.sh"
-	echo "	type	Type	hidden	$TYPE"
+	echo "	type	Type	hidden	$ORIGIN-$TYPE"
 	echo "	event	Event	readonly	$TYPENAME"
 	echo "	time	Time	readonly	$TIME"
 	echo "	origin	Originator	readonly	$ORIGIN"
