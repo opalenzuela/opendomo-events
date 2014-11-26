@@ -8,6 +8,7 @@
 EHPATH="/usr/local/opendomo/eventhandlers"
 EVPATH="/usr/local/opendomo/events"
 ACTPATH="/etc/opendomo/actions"
+CFGDIR="/etc/opendomo/eventhandlers"
 
 EHS=""
 EVENTS=""
@@ -38,7 +39,7 @@ done
 
 # Two parameters: saving an eventhandler
 if ! test -z "$2"; then
-	EH=$1
+	EH="$CFGDIR/$1"
 	SCRIPT=$2
 	if test -x "$SCRIPT"
 	then
@@ -62,7 +63,7 @@ fi
 # Listamos los EH configurados
 echo "#> Installed eventhandlers"
 echo "list:`basename $0`	detailed selectable"
-cd /etc/opendomo/eventhandlers
+cd $CFGDIR
 for ehf in *; do
 	NAME=`grep '#desc' "$ehf" |cut -f2- -d':'` 2>/dev/null
 	EHFBN=`basename $ehf`
