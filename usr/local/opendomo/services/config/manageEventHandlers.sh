@@ -7,7 +7,7 @@
 
 EHPATH="/usr/local/opendomo/eventhandlers"
 EVPATH="/usr/local/opendomo/events"
-SEQPATH="/etc/opendomo/sequences"
+ACTPATH="/etc/opendomo/actions"
 
 EHS=""
 EVENTS=""
@@ -17,8 +17,8 @@ for eh in $EHPATH/*.sh; do
 	desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 	EHS="$EHS,$eh:$desc"
 done
-# ... and we add the sequences !
-for eh in $SEQPATH/*.seq; do
+# ... and we add the actions !
+for eh in $ACTPATH/*.seq; do
 	if test -f $eh; then
 		desc=`grep '#desc:' $eh | head -n1 | cut -f2 -d:`
 		EHS="$EHS,$eh:$desc"
@@ -36,12 +36,13 @@ for p in `ls $EVPATH/*`; do
 	fi
 done
 
-EH=$1
-SCRIPT=$2
+# Two parameters: saving an eventhandler
 if ! test -z "$2"; then
-	if test -x "$EHPATH/$SCRIPT"
+	EH=$1
+	SCRIPT=$2
+	if test -x "$SCRIPT"
 	then
-		if ln -s "$EHPATH/$SCRIPT" $EH
+		if ln -s "$SCRIPT" $EH
 		then
 			#echo "# Eventhandler [$EH] created"
 			/bin/logevent notice odevents "Eventhandler [$EH] created"
@@ -49,13 +50,11 @@ if ! test -z "$2"; then
 			echo "#ERR Eventhandler couldn't be created"
 			/bin/logevent notice odevents "Error creating [$EH]"
 			echo
-			exit 1
 		fi 
-	#else
-	#	echo "#ERR Eventhandler not found"
-	#	/bin/logevent notice odevents "Error creating [$EH]"
-	#	echo
-	#	exit 2
+	else
+		echo "#ERR Eventhandler not found"
+		/bin/logevent notice odevents "Error creating [$EH]"
+		echo
 	fi
 fi
 
