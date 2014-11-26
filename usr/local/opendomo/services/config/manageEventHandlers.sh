@@ -45,15 +45,15 @@ if ! test -z "$2"; then
 		if ln -s "$SCRIPT" $EH
 		then
 			#echo "# Eventhandler [$EH] created"
-			/bin/logevent notice odevents "Eventhandler [$EH] created"
+			logevent notice odevents "Eventhandler [$EH] created"
 		else
 			echo "#ERR Eventhandler couldn't be created"
-			/bin/logevent notice odevents "Error creating [$EH]"
+			logevent notice odevents "Error creating [$EH]"
 			echo
 		fi 
 	else
 		echo "#ERR Eventhandler not found"
-		/bin/logevent notice odevents "Error creating [$EH]"
+		logevent notice odevents "Error creating [$EH]"
 		echo
 	fi
 fi
