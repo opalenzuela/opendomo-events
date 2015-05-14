@@ -21,6 +21,4 @@ function checkSystemStatus() {
 	}	
 }
 
-setInterval(function () {
-	
-}, 5000);
+setInterval(checkSystemStatus, 5000);
