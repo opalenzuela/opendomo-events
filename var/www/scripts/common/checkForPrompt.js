@@ -8,7 +8,9 @@ promptworker.postMessage('start');
 function checkSystemStatus() {
 	try {
 		if (typeof loadAsync == "function") {
-			
+			loadAsync("/data/status.json",function(d){
+				console.log(d);
+			});
 		}
 		/*var s = loadJSON("/data/status.json");
 		if (s && s.status == "busy") {
