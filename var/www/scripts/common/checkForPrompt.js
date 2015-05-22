@@ -11,7 +11,7 @@ function checkSystemStatus() {
 			try {
 				switch(d.status) {
 					case "busy":
-						$("#cat-save a").css("background","rgba(0, 0, 0, 0) url(/themes/default/warning.png) no-repeat scroll center center");
+						$("#cat-save a").css("background","rgba(0, 0, 0, 0) url(/images/default/warning.png) no-repeat scroll center center");
 						break;
 					case "active":
 						$("#cat-save a").css("background","rgba(0, 0, 0, 0) url(/themes/default/save.png) no-repeat scroll center center");					
