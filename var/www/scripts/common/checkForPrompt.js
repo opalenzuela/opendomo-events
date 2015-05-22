@@ -7,11 +7,9 @@ promptworker.postMessage('start');
 
 function checkSystemStatus() {
 	try {
-		if (typeof loadAsync == "function") {
-			loadAsync("/data/status.json",function(d){
-				console.log(d);
-			});
-		}
+		loadAsync("/data/status.json",function(d){
+			console.log(d);
+		});
 		/*var s = loadJSON("/data/status.json");
 		if (s && s.status == "busy") {
 			console.log("busy");
@@ -27,3 +25,13 @@ function checkSystemStatus() {
 }
 
 setInterval(checkSystemStatus, 5000);
+
+if (typeof loadAsync == "undefined") {
+	//TODO Remove this block on 2.2.6
+	function loadAsync(filePath, callback){
+		jQuery.ajax({
+			type : "GET",
+			url : filePath
+		}).success(callback);		
+	}
+}
