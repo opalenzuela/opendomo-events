@@ -8,6 +8,17 @@ promptworker.postMessage('start');
 function checkSystemStatus() {
 	try {
 		loadAsync("/data/status.json",function(d){
+			try {
+				switch(d.status) {
+					case "busy":
+						$("#cat-save a").css("background","rgba(0, 0, 0, 0) url(/themes/default/warning.png) no-repeat scroll center center");
+						break;
+					case "active":
+						$("#cat-save a").css("background","rgba(0, 0, 0, 0) url(/themes/default/save.png) no-repeat scroll center center");					
+						break;
+				}
+			} catch(e) {
+			}
 			console.log(d);
 		});
 		/*var s = loadJSON("/data/status.json");
