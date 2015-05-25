@@ -20,6 +20,7 @@ function checkSystemStatus() {
 			} catch(e) {
 			}
 			console.log(d);
+			setTimeout(checkSystemStatus, 5000);
 		});
 		/*var s = loadJSON("/data/status.json");
 		if (s && s.status == "busy") {
@@ -35,7 +36,7 @@ function checkSystemStatus() {
 	}	
 }
 
-setInterval(checkSystemStatus, 5000);
+setTimeout(checkSystemStatus, 5000);
 
 if (typeof loadAsync == "undefined") {
 	//TODO Remove this block on 2.2.6
